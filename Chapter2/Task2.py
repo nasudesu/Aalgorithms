@@ -2,7 +2,7 @@ from __future__ import annotations
 import ctypes
 
 
-class ReservedMemory:
+class ReservedMemory():
     """
     A class to reserve and handle a contigous area of memory. The
     constructor needs the size of the memory area (in bytes) to be
@@ -130,7 +130,7 @@ class ReservedMemory:
         self._reserved_memory[k] = val
 
 
-class IntArray:
+class IntArray():
     """
     A class to implement an Array Data Structure that accepts integer values
     between -(2**(n-1)) and (2**(n-1))-1 (being n the number of bits per element).
@@ -267,14 +267,16 @@ class IntArray:
         # Return the last element's value that was stored at the beginning
         return val
 
-    def insert(self, index: int, val: int) -> None:
+    def remove(self, index: int) -> int:
         popperList = []
-        if -1 < index < self.__len__() + 1:
+        indexNum = self.__getitem__(index)
+        if -1 < index < self._size + 1:
             for _ in range(self._size - index):
-                popperList.append(self.pop())
-            self.append(val)
-            for j in popperList:
-                self.append(j)
+                value = self.pop()
+                if value != indexNum: popperList.append(value)
+            popperList.reverse()
+            for j in popperList: self.append(j)
+            return indexNum
         else:
             raise IndexError
 
@@ -283,7 +285,5 @@ array = IntArray()
 for i in range(6):
     array.append(i)
 print(array)
-array.insert(6, 7)
-print(array)
-array.insert(6, 7)
-print(array)
+val = array.remove(3)
+print(val, array)
