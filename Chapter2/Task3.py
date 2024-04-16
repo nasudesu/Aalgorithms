@@ -286,7 +286,6 @@ class IntArray():
         return -1
 
 
-
 array = IntArray()
 for i in range(6):
     array.append(i + i)
